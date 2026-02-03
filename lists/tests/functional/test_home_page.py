@@ -1,5 +1,7 @@
 from django.test import LiveServerTestCase
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+
 
 class HomePageTest(LiveServerTestCase):
 
@@ -23,3 +25,14 @@ class HomePageTest(LiveServerTestCase):
             inputbox.get_attribute("placeholder"),
             "Enter a to-do item"
         )
+
+    def test_user_can_enter_a_todo_item(self):
+        self.browser.get(self.live_server_url)
+
+        inputbox = self.browser.find_element("name", "item_text")
+        inputbox.send_keys("Buy milk")
+        inputbox.send_keys(Keys.ENTER)
+
+        body_text = self.browser.find_element("tag name", "body").text
+        self.assertIn("Buy milk", body_text)
+

@@ -4,15 +4,20 @@
     <title>To-Do lists</title>
   </head>
   <body>
-  <h1>To-Do</h1>
+    <h1>To-Do</h1>
 
-  <p>Enter a to-do item</p>
+    <p>Enter a to-do item</p>
 
-  <form method="POST" action="/lists/new">
-    {% csrf_token %}
-    <input name="item_text" placeholder="Enter a to-do item" />
-    <button type="submit">Add</button>
-  </form>
-</body>
+    <form method="POST" action="/lists/new">
+      {% csrf_token %}
+      <input name="item_text" placeholder="Enter a to-do item" />
+      <button type="submit">Add</button>
+    </form>
 
+    <ul id="id_list">
+      {% for item in items %}
+        <li>{{ item.text }}</li>
+      {% endfor %}
+    </ul>
+  </body>
 </html>

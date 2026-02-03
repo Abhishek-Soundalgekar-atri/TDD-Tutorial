@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
+from .models import Item
 
 def home_page(request):
-    # render template (we'll add items later)
-    return render(request, "home.html")
+    items = Item.objects.all()
+    return render(request, "home.html", {'items': items})
 
 def new_list(request):
-    # temporary placeholder for POST handling (we'll implement saving later)
     if request.method == "POST":
+        Item.objects.create(text=request.POST.get('item_text', ''))
         return redirect('home')
     return redirect('home')
