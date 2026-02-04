@@ -33,6 +33,7 @@ class HomePageTest(LiveServerTestCase):
         inputbox.send_keys("Buy milk")
         inputbox.send_keys(Keys.ENTER)
 
-        body_text = self.browser.find_element("tag name", "body").text
-        self.assertIn("Buy milk", body_text)
+        list_items = self.browser.find_elements("css selector", "#id_list li")
+        self.assertIn("Buy milk", [item.text for item in list_items])
+
 
