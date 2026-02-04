@@ -1,6 +1,8 @@
 from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from .helpers import wait_for_row_in_list
+
 
 
 class HomePageTest(LiveServerTestCase):
@@ -33,7 +35,7 @@ class HomePageTest(LiveServerTestCase):
         inputbox.send_keys("Buy milk")
         inputbox.send_keys(Keys.ENTER)
 
-        list_items = self.browser.find_elements("css selector", "#id_list li")
-        self.assertIn("Buy milk", [item.text for item in list_items])
+        wait_for_row_in_list(self.browser, "Buy milk")
+
 
 
